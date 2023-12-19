@@ -16,13 +16,13 @@ DELETE http://localhost:3000/api/users/3
 
 GET https://jsonplaceholder.typicode.com/users
 
-### Create post
+### Create user
 
-POST https://jsonplaceholder.typicode.com/posts
+POST http://localhost:3000/api/users
 Content-Type:  application/json
 
 {
-  "userId": 50,
-  "title": "new post",
-  "body": "body of new post"
+  "name": "Mike",
+  "town": "Kazkur",
+  "isDriver": false
 }

@@ -35,6 +35,8 @@ let users = [
 // Middleware
 app.use(morgan('dev'));
 app.use(cors()); // to fix cors errror
+// jei norim i req.body gauti json
+app.use(express.json());
 
 // ROUTES
 
@@ -80,6 +82,20 @@ app.delete('/api/users/:userId', (request, response) => {
   users = users.filter((uObj) => uObj.id !== userId);
   console.log('users ===', users);
   response.json(users);
+});
+
+app.post('/api/users', (req, res) => {
+  // console.log('req.body ===', req.body);
+  // sukuriam nauja useri
+  const newUser = {
+    id: Math.random().toString().slice(3),
+    name: req.body.name,
+    town: req.body.town,
+    isDriver: req.body.isDriver,
+  };
+  console.log('newUser ===', newUser);
+  users.push(newUser);
+  res.sendStatus(201);
 });
 
 app.listen(port, () => {
