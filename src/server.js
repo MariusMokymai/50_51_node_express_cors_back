@@ -1,15 +1,35 @@
-'use strict';
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
+
 const app = express();
 const port = 3000;
 
 let users = [
-  { id: 1, name: 'James', town: 'London', isDriver: false },
-  { id: 2, name: 'Mike', town: 'Kaunas', isDriver: true },
-  { id: 3, name: 'Bob', town: 'Vilnius', isDriver: false },
-  { id: 4, name: 'Jane', town: 'Klaipeda', isDriver: true },
+  {
+    id: 1,
+    name: 'James',
+    town: 'London',
+    isDriver: false,
+  },
+  {
+    id: 2,
+    name: 'Mike',
+    town: 'Kaunas',
+    isDriver: true,
+  },
+  {
+    id: 3,
+    name: 'Bob',
+    town: 'Vilnius',
+    isDriver: false,
+  },
+  {
+    id: 4,
+    name: 'Jane',
+    town: 'Klaipeda',
+    isDriver: true,
+  },
 ];
 
 // Middleware
