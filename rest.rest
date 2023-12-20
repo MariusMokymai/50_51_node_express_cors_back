@@ -10,7 +10,7 @@ GET http://localhost:3000/api/users/town
 GET http://localhost:3000/api/users/30
 
 ### delete a user
-DELETE http://localhost:3000/api/users/3
+DELETE http://localhost:3000/api/users/2
 
 ### 
 
@@ -25,4 +25,14 @@ Content-Type:  application/json
   "name": "Mike",
   "town": "Kazkur",
   "isDriver": false
+}
+### Update user
+
+POST http://localhost:3000/api/users/2
+Content-Type:  application/json
+
+{
+  "name": "Serbentautas",
+  "town": "Kazkur",
+  "isDriver": true
 }

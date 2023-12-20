@@ -11,6 +11,7 @@ let users = [
     name: 'James',
     town: 'London',
     isDriver: false,
+    isDeleted: false,
   },
   {
     id: 2,
@@ -87,15 +88,64 @@ app.delete('/api/users/:userId', (request, response) => {
 app.post('/api/users', (req, res) => {
   // console.log('req.body ===', req.body);
   // sukuriam nauja useri
+  // const newUser = {
+  //   id: +Math.random().toString().slice(3),
+  //   name: req.body.name,
+  //   town: req.body.town,
+  //   isDriver: req.body.isDriver,
+  // };
+
+  const { name, town, isDriver } = req.body;
+
+  // mini validation
+  if (name.trim().length === 0) {
+    res.status(400).json({
+      field: 'name',
+      error: 'name required field',
+    });
+    return;
+  }
   const newUser = {
-    id: Math.random().toString().slice(3),
-    name: req.body.name,
-    town: req.body.town,
-    isDriver: req.body.isDriver,
+    id: +Math.random().toString().slice(3),
+    name,
+    town,
+    isDriver,
   };
+  // const newUser = {
+  //   id: +Math.random().toString().slice(3),
+  //   ...req.body,
+  // };
   console.log('newUser ===', newUser);
   users.push(newUser);
   res.sendStatus(201);
+});
+
+// PUT  /api/users/2 - updates users with id 2 object
+app.put('/api/users/:userId', (req, res) => {
+  const userId = +req.params.userId;
+  // surasti ir pakeisti esama objekta
+  const foundIdx = users.findIndex((uObj) => uObj.id === userId);
+  // found.name = req.body.name;
+  // found.town = req.body.town;
+  // found.isDriver = req.body.isDriver;
+  users[foundIdx] = {
+    id: userId,
+    ...req.body,
+  };
+  // console.log('found ===', found);
+  // grazinsim pakeista masyva i fronta
+
+  res.json(users);
+});
+
+// catch all route 404 case
+
+app.all('*', (req, res) => {
+  res.status(500).json({
+    msg: 'Something went wrong',
+    method: req.method,
+    url: req.url,
+  });
 });
 
 app.listen(port, () => {
