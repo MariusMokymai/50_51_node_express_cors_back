@@ -1,5 +1,7 @@
 GET http://localhost:3000
 
+### get all books
+DELETE  http://localhost:3000/api/books/2
 ### get all users
 GET http://localhost:3000/api/users
 
