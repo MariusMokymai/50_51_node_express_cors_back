@@ -30,7 +30,7 @@ Content-Type:  application/json
 }
 ### Update user
 
-POST http://localhost:3000/api/users/2
+PUT http://localhost:3000/api/users/1
 Content-Type:  application/json
 
 {
