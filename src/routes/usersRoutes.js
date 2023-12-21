@@ -1,4 +1,5 @@
 const express = require('express');
+const { validateUser } = require('../middleware');
 // sukuriam routeri
 const usersRouter = express.Router();
 
@@ -72,43 +73,23 @@ usersRouter.delete('/api/users/:userId', (request, response) => {
   response.json(users);
 });
 
-usersRouter.post('/api/users', (req, res) => {
-  // console.log('req.body ===', req.body);
-  // sukuriam nauja useri
-  // const newUser = {
-  //   id: +Math.random().toString().slice(3),
-  //   name: req.body.name,
-  //   town: req.body.town,
-  //   isDriver: req.body.isDriver,
-  // };
-
+usersRouter.post('/api/users', validateUser, (req, res) => {
   const { name, town, isDriver } = req.body;
 
-  // mini validation
-  if (name.trim().length === 0) {
-    res.status(400).json({
-      field: 'name',
-      error: 'name required field',
-    });
-    return;
-  }
   const newUser = {
     id: +Math.random().toString().slice(3),
     name,
     town,
     isDriver,
   };
-  // const newUser = {
-  //   id: +Math.random().toString().slice(3),
-  //   ...req.body,
-  // };
+
   console.log('newUser ===', newUser);
   users.push(newUser);
   res.sendStatus(201);
 });
 
 // PUT  /api/users/2 - updates users with id 2 object
-usersRouter.put('/api/users/:userId', (req, res) => {
+usersRouter.put('/api/users/:userId', validateUser, (req, res) => {
   const userId = +req.params.userId;
   // surasti ir pakeisti esama objekta
   const foundIdx = users.findIndex((uObj) => uObj.id === userId);

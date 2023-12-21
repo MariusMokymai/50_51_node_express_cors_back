@@ -24,8 +24,8 @@ POST http://localhost:3000/api/users
 Content-Type:  application/json
 
 {
-  "name": "Mike",
-  "town": "Kazkur",
+  "name": "sdsd",
+  "town": " ",
   "isDriver": false
 }
 ### Update user
@@ -34,7 +34,7 @@ PUT http://localhost:3000/api/users/1
 Content-Type:  application/json
 
 {
-  "name": "Serbentautas",
+  "name": "Eik Jau",
   "town": "Kazkur",
   "isDriver": true
 }

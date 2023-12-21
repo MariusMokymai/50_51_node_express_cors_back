@@ -13,7 +13,39 @@ const bodyLooger = (req, res, next) => {
   }
   next();
 };
+
+const validateUser = (req, res, next) => {
+  const { name, town, isDriver } = req.body;
+
+  // mini validation
+  if (name.trim().length === 0) {
+    res.status(400).json({
+      field: 'name',
+      error: 'name required field',
+    });
+    return;
+  }
+  if (town.trim().length === 0) {
+    res.status(400).json({
+      field: 'town',
+      error: 'town required field',
+    });
+    return;
+  }
+  if (name.trim().length < 3) {
+    res.status(400).json({
+      field: 'name',
+      error: 'name must be 3 letters or more',
+    });
+    return;
+  }
+
+  // klaidu nera
+  next();
+};
+
 module.exports = {
   firstMiddle,
   bodyLooger,
+  validateUser,
 };
