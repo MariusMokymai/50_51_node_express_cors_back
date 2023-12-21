@@ -11,18 +11,35 @@ const firstMiddle = (req, res, next) => {
   next();
 };
 
+const bodyLooger = (req, res, next) => {
+  // patikrinti ar route metodas yra put, post, patch
+  console.log('req.method ===', req.method);
+  // ['PUT', 'POST', 'PATCH'].includes(req.method);
+  // if (req.method === 'PUT' || req.method === 'POST' || req.method === 'PATCH') {
+  if (['PUT', 'POST', 'PATCH'].includes(req.method)) {
+    console.log('req.body ===', req.body);
+  }
+  next();
+};
+
 // Middleware
-// aplikacijos lygio middle ware
-app.use(firstMiddle);
-app.use(morgan('dev'));
-app.use(cors()); // to fix cors errror
 // jei norim i req.body gauti json
 app.use(express.json());
+// aplikacijos lygio middle ware
+app.use(firstMiddle);
+app.use(bodyLooger);
+app.use(morgan('dev'));
+app.use(cors()); // to fix cors errror
 
 // Home route
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
+
+// route lygio middleware
+// app.put('/api/test', bodyLooger, (req, res) => {
+//   res.json('testing post route');
+// });
 
 const usersRouter = require('./routes/usersRoutes');
 const booksRouter = require('./routes/booksRoutes');
