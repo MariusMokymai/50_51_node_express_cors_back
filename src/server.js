@@ -74,6 +74,12 @@ let books = [
   },
 ];
 
+// Middleware
+app.use(morgan('dev'));
+app.use(cors()); // to fix cors errror
+// jei norim i req.body gauti json
+app.use(express.json());
+
 // crud
 
 // gauti visasa knygas
@@ -109,15 +115,11 @@ app.post('/api/books', (req, res) => {
     year,
   };
   books.push(newBook);
-  res.sendStatus(201);
+  // res.status(201).json({ newPostID: newBook.id });
+  // res.status(201).json(newBook);
+  res.status(201).json(books);
 });
 // atnaujinti
-
-// Middleware
-app.use(morgan('dev'));
-app.use(cors()); // to fix cors errror
-// jei norim i req.body gauti json
-app.use(express.json());
 
 // ROUTES
 
