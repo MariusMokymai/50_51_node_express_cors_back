@@ -6,9 +6,14 @@ const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3000;
 
-// console.log('process.env.PASS ===', process.env.PASS);
+const firstMiddle = (req, res, next) => {
+  console.log('Hello from middleware', new Date().toTimeString());
+  next();
+};
 
 // Middleware
+// aplikacijos lygio middle ware
+app.use(firstMiddle);
 app.use(morgan('dev'));
 app.use(cors()); // to fix cors errror
 // jei norim i req.body gauti json
